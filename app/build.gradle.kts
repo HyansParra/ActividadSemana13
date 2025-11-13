@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    // LÍNEA AÑADIDA:
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -41,4 +43,12 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // --- LÍNEAS AÑADIDAS PARA FIREBASE ---
+    // Importa el Bill of Materials (BOM) de Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
+
+    // Añade la dependencia para Firebase Realtime Database
+    implementation("com.google.firebase:firebase-database")
+    // ------------------------------------
 }
