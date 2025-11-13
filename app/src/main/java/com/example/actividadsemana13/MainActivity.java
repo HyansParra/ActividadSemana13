@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main); // Esto enlaza tu layout XML
 
-        // Inicializa la referencia a la base de datos [cite: 84, 204]
+        // Inicializa la referencia a la base de datos de Firebase
         // Esto apunta a la raíz de tu Realtime Database
         database = FirebaseDatabase.getInstance().getReference();
 
@@ -71,19 +71,18 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        // Crea una estructura de datos (Map) similar a la del ejemplo 'writeUserData' [cite: 86-92]
-        // o al ejemplo de Firestore en la presentación [cite: 211, 217]
+        // Crea una estructura de datos (Map) para los datos del usuario
         Map<String, Object> usuario = new HashMap<>();
-        usuario.put("username", nombre); // [cite: 88]
+        usuario.put("username", nombre);
         usuario.put("apellido", apellido); // Campo personalizado
-        usuario.put("email", "ejemplo@correo.com"); // Ejemplo, ya que no lo pides [cite: 89]
+        usuario.put("email", "ejemplo@correo.com"); //Ejemplo
         usuario.put("edad", Integer.parseInt(edad)); // Ejemplo
 
-        // Genera una clave única para el nuevo usuario (similar a 'userId' o 'newPostKey' [cite: 87, 105])
+        // Genera una clave única para el nuevo usuario (similar a 'userId' o 'newPostKey'
         String userId = database.child("users").push().getKey();
 
         if (userId != null) {
-            // Escribe los datos en la base de datos en la ruta 'users/[userId]' [cite: 87, 204]
+            // Escribe los datos en la base de datos en la ruta 'users/[userId]'
             database.child("users").child(userId).setValue(usuario)
                     .addOnSuccessListener(aVoid -> {
                         // Éxito
