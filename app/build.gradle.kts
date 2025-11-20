@@ -50,5 +50,7 @@ dependencies {
 
     // Añade la dependencia para Firebase Realtime Database
     implementation("com.google.firebase:firebase-database")
-    // ------------------------------------
+
+    // Añade la dependencia para Firebase Auth
+    implementation("com.google.firebase:firebase-auth")
 }
