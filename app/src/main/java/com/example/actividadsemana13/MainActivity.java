@@ -1,5 +1,6 @@
 package com.example.actividadsemana13;
 
+import android.content.Intent; // Necesario para cambiar de pantalla
 import android.os.Bundle;
 import android.view.View; // Importa View
 import android.widget.Button; // Importa Button
@@ -13,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 // Importa las clases de Firebase Database
+import com.google.firebase.auth.FirebaseAuth; // Para cerrar sesión
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     // Declara las variables de la UI
     EditText txtNombre, txtApellido, txtEdad;
     Button btnGuardar;
+    Button btnLogout;
 
     // Declara la referencia a la base de datos de Firebase
     DatabaseReference database;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         txtApellido = findViewById(R.id.txtApellido);
         txtEdad = findViewById(R.id.txtEdad);
         btnGuardar = findViewById(R.id.btnGuardar);
+        btnLogout = findViewById(R.id.btnLogout); // Enlazar el botón
 
         // Configura el listener de clic para el botón
         btnGuardar.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +54,22 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Llama a la función para guardar datos
                 guardarDatosEnFirebase();
+            }
+        });
+
+        // Configura el listener para CERRAR SESIÓN
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 1. Cerrar sesión en Firebase
+                FirebaseAuth.getInstance().signOut();
+
+                // 2. Volver al Login
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+
+                // 3. Cerrar esta pantalla
+                finish();
             }
         });
 
